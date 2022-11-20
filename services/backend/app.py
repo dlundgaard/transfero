@@ -1,9 +1,10 @@
+import os
 from flask import Flask, request, render_template, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, template_folder="build", static_folder="build/static")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///scores.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
