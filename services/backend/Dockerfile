@@ -7,22 +7,15 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install system dependencies
-RUN apt-get update \
-    && apt-get -y install sqlite3 libsqlite3-dev \
-    && apt-get clean
-
 # create database
 RUN mkdir /db
 RUN touch /db/scores.db
 
 # add and install requirements
 COPY ./requirements.txt .
-RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# add app
+# add app to workdir
 COPY . .
 
-ENTRYPOINT [ "python" ]
-CMD [ "app.py" ]
+ENTRYPOINT [ "python", "app.py" ]
