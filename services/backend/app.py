@@ -10,6 +10,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 db.create_all()
 
+
 class Score(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     time_recorded = db.Column(db.String(80), nullable=False)
@@ -24,13 +25,16 @@ class Score(db.Model):
 def index():
     return render_template("index.html")
 
+
 @app.route("/manifest.json")
 def manifest():
     return send_from_directory("build", "manifest.json")
 
+
 @app.route("/favicon.ico")
 def favicon():
     return send_from_directory("build", "favicon.ico")
+
 
 @app.route("/post", methods=["POST"])
 def post_score():
@@ -54,6 +58,7 @@ def get_highscore():
     except AttributeError:
         highscore = 0
     return jsonify(score=highscore)
+
 
 if __name__ == "__main__":
     app.run()
