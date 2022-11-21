@@ -14,7 +14,7 @@ RUN apt-get update \
 
 # create database
 RUN mkdir /db
-RUN /usr/bin/sqlite3 /db/scores.db
+RUN touch /db/scores.db
 
 # add and install requirements
 COPY ./requirements.txt .
