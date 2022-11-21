@@ -1,19 +1,6 @@
 version: "3.3"
 
 services:
-  backend:
-    build:
-      context: "./services/backend"
-      dockerfile: Dockerfile
-    volumes:
-      - "./services/backend:/app"
-    ports:
-      - 5000:5000
-    environment:
-      - FLASK_ENV=development
-      - APP_SETTINGS=app.config.DevelopmentConfig
-      - DATABASE_URI=sqlite:///scores.db
-
   frontend:
     build:
       context: ./services/frontend
@@ -25,9 +12,18 @@ services:
       - 3000:3000
     environment:
       - NODE_ENV=development
-      - REACT_APP_BACKEND_SERVICE_URL=http://localhost:5004
-      - REACT_APP_WEBSOCKET_SERVICE_URL=http://localhost:5001
     depends_on:
       - backend
     stdin_open: true
     tty: true
+  backend:
+    build:
+      context: "./services/backend"
+      dockerfile: Dockerfile
+    volumes:
+      - "./services/backend:/app"
+    ports:
+      - 5000:5000
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URI=sqlite:////db/scores.db
