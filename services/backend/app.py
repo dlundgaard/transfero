@@ -8,7 +8,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
-db.create_all()
+
+with app.app_context():
+    db.create_all()
 
 
 class Score(db.Model):
